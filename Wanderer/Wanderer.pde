@@ -29,8 +29,8 @@ acc=new PVector(random(-.1,.1),random(-.1,.1));
     }
   }
     void mousePressed(){
-      accx=random(-.1,.1);
-      accy=random(-.1,.1);
+      acc.x=random(-.1,.1);
+      acc.y=random(-.1,.1);
     }
 
 
