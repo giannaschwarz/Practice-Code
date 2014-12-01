@@ -12,7 +12,7 @@ void setup(){
   imageMode(CENTER);
   johnnyDepp=loadImage("johnnydepp.jpg");
   for(int i=0; i<count; i++){
-    sz[i]=random(10,40);
+    sz[i]=random(40,100);
     loc[i]=new PVector(random(width),random(-height*1.5,-sz[i]/2));
     vel[i]=new PVector(0,random(1));
     acc[i]=new PVector(0,.01);
