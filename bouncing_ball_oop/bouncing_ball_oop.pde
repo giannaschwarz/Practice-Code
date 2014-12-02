@@ -1,5 +1,5 @@
 //Ball b;      //declare Ball b
-Ball[] b = new Ball[69];    //declare and initialize array b
+Ball[] b = new Ball[99];    //declare and intialize array b
 void setup() {
   size(800, 600);
   colorMode(HSB, 360, 100, 100, 100);
@@ -13,7 +13,7 @@ void draw() {
   for (int i = 0; i < b.length; i++) {
     b[i].display();
     b[i].move();
-    b[i].bounce();
+    //b[i].bounce();
   }
 }
 
@@ -28,10 +28,9 @@ class Ball {
   float alpha;
   Ball() {
     //intialize variables
-    loc = new PVector(width/2, height/2);
-    vel = PVector.random2D();
-    vel.mult(random(.2,10));
-    acc = new PVector(0, 0);
+   loc = new PVector (width/2,height/2);
+    vel = new PVector(random(-3,3),random(-1,0));
+    acc = new PVector(random(.001,.01));
     sz = random(10, 100);
     hue = random(200,299);
     alpha=100;
@@ -40,17 +39,21 @@ class Ball {
     vel.add(acc);
     loc.add(vel);
   }
-  void bounce() {
-    if (loc.x + sz/2 > width || loc.x - sz/2 < 0) {
-      vel.x *= -1;
-    }
-    if (loc.y + sz/2 > height || loc.y - sz/2 < 0) {
-      vel.y *= -1;
+  void wraparound(){
+    if(loc.y-sz/2>height){
+      loc.set(mouseX,mouseY);
     }
   }
+  //void bounce() {
+   // if (loc.x + sz/2 > width || loc.x - sz/2 < 0) {
+   //   vel.x *= -1;
+   // }
+   // if (loc.y + sz/2 > height || loc.y - sz/2 < 0) {
+   //   vel.y *= -1;
+   // }
+ // }
   void display() {
     fill(hue, 100, 100, 100);
     ellipse(loc.x, loc.y, sz, sz);
   }
 }
-
