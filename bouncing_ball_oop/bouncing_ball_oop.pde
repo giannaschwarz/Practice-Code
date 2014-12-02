@@ -1,5 +1,5 @@
 //Ball b;      //declare Ball b
-Ball[] b = new Ball[20];    //declare and initialize array b
+Ball[] b = new Ball[69];    //declare and initialize array b
 void setup() {
   size(800, 600);
   colorMode(HSB, 360, 100, 100, 100);
@@ -33,7 +33,7 @@ class Ball {
     vel.mult(random(.2,10));
     acc = new PVector(0, 0);
     sz = random(10, 100);
-    hue = random(360);
+    hue = random(200,299);
     alpha=100;
   }
   void move() {
