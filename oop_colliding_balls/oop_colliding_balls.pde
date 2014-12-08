@@ -1,4 +1,4 @@
-Bouncer[] bouncers= new Bouncer[100];
+Bouncer[] bouncers= new Bouncer[30];
 void setup() {
   size(800, 600);
   for (int i=0; i<bouncers.length; i++) {
@@ -44,7 +44,7 @@ class Bouncer {
       vel.x*=-1;
     }
     if (loc.y+sz/2>height ||loc.y-sz/2<0) {
-      vel.y+=-1;
+      vel.y*=-1;
     }
   }
   void collideWith(Bouncer someOtherBall) {
