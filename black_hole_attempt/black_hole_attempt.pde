@@ -3,13 +3,12 @@ BlackHole devourerOfAllThings;
 
 void setup() {
   size(800, 600);
- background(0);
   colorMode(HSB, 360, 100, 100, 100);
   devourerOfAllThings = new BlackHole();
 }
 
 void draw() {
-background(0);
+background(250);
   devourerOfAllThings.display();
   if (mousePressed) {
     food.add(new BouncyBall(random(5, 30), random(.1, 5)));
@@ -39,8 +38,8 @@ class BlackHole {
 
   void display() {
     fill(0);
-    stroke(frameCount%360,100,100);
-    strokeWeight(3);
+    stroke(360);
+    strokeWeight(1);
     ellipse(loc.x, loc.y, sz, sz);
   }
 
@@ -75,7 +74,7 @@ class BouncyBall {
   
  void display() {
   fill(hue, 100, 100, 100);
- noStroke();
+ stroke(0);
   ellipse(loc.x, loc.y, sz, sz);
  }
  void move() {
