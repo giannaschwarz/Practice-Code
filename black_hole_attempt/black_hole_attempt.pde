@@ -69,7 +69,7 @@ class BouncyBall {
     vel = PVector.random2D();
     acc = new PVector();
   vel.setMag(speed);
-   hue = random(360);
+   hue = random(100,200);
   }
   
  void display() {
