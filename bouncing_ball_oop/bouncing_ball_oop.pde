@@ -1,10 +1,11 @@
 //Ball b;      //declare Ball b
-Ball[] b = new Ball[99];    //declare and intialize array b
+;   //declare and intialize array b
 void setup() {
   size(800, 600);
+  background(0);
   colorMode(HSB, 360, 100, 100, 100);
 for (int i=0; i<b.length; i++){
-  b[i]= new Ball();
+  b= new BouncyBall();
 }
 }
 
@@ -13,47 +14,98 @@ void draw() {
   for (int i = 0; i < b.length; i++) {
     b[i].display();
     b[i].move();
-    //b[i].bounce();
+    b[i].bounce();
   }
 }
 
 
 
 
-class Ball {
+class BouncyBall {
   //declare variables
   PVector loc, vel, acc;
   float sz;
   float hue;
-  float alpha;
-  Ball() {
+  float speed;
+  
+  BouncyBall(float tempsz, float tempsz) {
     //intialize variables
-   loc = new PVector (width/2,height/2);
-    vel = new PVector(random(-3,3),random(-1,0));
-    acc = new PVector(random(.001,.01));
-    sz = random(10, 100);
-    hue = random(200,299);
-    alpha=100;
+    sz=tempsz;
+    speed=tempspeed;
+   loc = new PVector (random(sz,width-sz),random(sz,height-ssz));
+    vel = PVector.random2D();
+    acc = new PVector();
+    hue = random(360);
+    vel.setMag(speed);
   }
-  void move() {
-    vel.add(acc);
-    loc.add(vel);
-  }
-  void wraparound(){
-    if(loc.y-sz/2>height){
-      loc.set(mouseX,mouseY);
-    }
-  }
-  //void bounce() {
-   // if (loc.x + sz/2 > width || loc.x - sz/2 < 0) {
-   //   vel.x *= -1;
-   // }
-   // if (loc.y + sz/2 > height || loc.y - sz/2 < 0) {
-   //   vel.y *= -1;
-   // }
- // }
   void display() {
     fill(hue, 100, 100, 100);
     ellipse(loc.x, loc.y, sz, sz);
+  }
+void move(){
+  vel.add(acc);
+  loc.add(vel);
+}
+void wallBounce(){
+  if(loc.x+sz/2>width){
+    vel.x=-abs(vel.x);
+  }
+  if(loc.x-sz/2<0){
+    vel.x=-abs(vel.y);
+  }
+  if(loc.y+sz/2>height){
+    vel.y=-abs(vel.y);
+  }
+  if(loc.y-sz/2<0){
+    vel.y=abs(vel.y);
+  }
+}
+void collideWith(Ball other){
+  if(loc.dist(other.loc)<sz/2+other.sz/2){
+    vel=Pvector.sub(loc,other.loc);
+    vel.setMag(speed);
+  }
+}
+void goAway(){
+  loc.set(width*10,height*10);
+  vel.set(0,0);
+}
+void teleport(){
+  loc.set(mousex,mouseY);
+  vel=PVector.random2D();
+}
+void isSuckedIn(BlackHole doom){
+  acc=PVector.sub(doom.loc,loc);
+  acc.setMag(.1);
+}
+}
+
+
+
+
+
+class BlackHole{
+  PVector loc;
+  float sz;
+  
+  BlackHole(){
+    loc=new PVector(random(width),random(height));
+    sz=5;
+  }
+  void display(){
+    fill(0);
+    stroke(frameCount%360,100,100);
+    strokeWeight(3);
+    ellipse(loc.xmloc.y,sz,sz);
+  }
+  boolean consumes(BouncyBall food){
+    if(loc.dist(food.loc)<sz/2+food.sz/2){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  void grow(){
+    sz+=1;
   }
 }
