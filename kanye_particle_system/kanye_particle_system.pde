@@ -1,5 +1,6 @@
 void setup(){
-  
+  background(250);
+  size(1000,1000);
 }
 
 void draw(){
@@ -8,6 +9,8 @@ void draw(){
 
 //make kanye as black hole
 class BlackHoleYe{
+  PImage ye;
+  ye= loadImage("ye.jpg");
   PVector loc;
   float sz;
   
@@ -17,8 +20,7 @@ class BlackHoleYe{
   }
   
   void display(){
-    fill(0);
-    ellipse(loc.x,loc.y,sz,sz);
+   image(ye,mouseX,mouseY,ye,ye);
   }
   
   //black hole Kanye consumes Kim's energy
