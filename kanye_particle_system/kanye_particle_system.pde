@@ -6,6 +6,8 @@ void setup(){
 void draw(){
   
 }
+////////////////KOLLIDING KIM KARDASHIAN CLASS///////////////
+///kim aging=smaller, dimmer; kim kolliding=smaller,dimmer
 
 //make kanye as black hole
 class BlackHoleYe{
