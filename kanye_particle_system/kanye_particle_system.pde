@@ -9,6 +9,21 @@ void draw(){
 ////////////////KOLLIDING KIM KARDASHIAN CLASS///////////////
 ///kim aging=smaller, dimmer; kim kolliding=smaller,dimmer
 
+class Kim {
+  float sz;
+  PVector loc,vel;
+  
+  Kim(){
+    sz=50;
+    loc=new PVector(width/2,height/2);
+    vel=PVector.random2D();
+  }
+  void display(){
+    ellipse(loc.x,loc.y,sz,sz);
+  }
+  void move(){
+    loc.add(vel);
+  }
 //make kanye as black hole
 class BlackHoleYe{
   PImage ye;
@@ -34,3 +49,25 @@ class BlackHoleYe{
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
