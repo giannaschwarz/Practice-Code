@@ -1,28 +1,34 @@
 ArrayList<Particle> allMyParticles = new ArrayList<Particle>();
-
+BlackHole blackHoleYe;
 void setup() {
   size(800, 600);
   colorMode(HSB, 360, 100, 100, 100);
-  BlackHoleYe = new BlackHole();
+  blackHoleYe = new BlackHole();
   noStroke();
+  imageMode(CENTER);
 }
 
 void draw() {
   background(360);
- BlackHoleYe.display();
-    if (mousePressed) {
+  blackHoleYe.display();
+  if (mousePressed) {
     allMyParticles.add(new Particle());
   }
-  background(0);
   for (int i= allMyParticles.size ()-1; i>=0; i--) {
     Particle currentParticle=allMyParticles.get(i);
     currentParticle.display();
     currentParticle.move();
+    currentParticle.update();
     if (currentParticle.isDead()) {
       allMyParticles.remove(i);
     }
+    if (blackHoleYe.consumes(currentParticle)) {
+      allMyParticles.remove(i);
+      blackHoleYe.grow();
+    }
   }
 }
+
 
 
 class BlackHole {
@@ -31,13 +37,13 @@ class BlackHole {
   float sz;
 
   BlackHole() {
-    loc = new PVector(random(width), random(height));
-    sz = 5;
+    loc = new PVector(random(width*.25, width*.75), random(height*.25, height));
+    sz = 10;
+    ye = loadImage("ye.jpg");
   }
 
   void display() {
-    ye = loadImage("ye.jpg");
-    image(ye, mouseX, mouseY, ye.width*.2, ye.height*.2);
+    image(ye, loc.x, loc.y, sz, sz*1.61);
   }
 
   boolean consumes(Particle food) {
@@ -49,7 +55,7 @@ class BlackHole {
   }
 
   void grow() {
-    sz+=1;
+    sz+=5;
   }
 }
 
@@ -59,32 +65,40 @@ class BlackHole {
 class Particle {
   PVector loc, vel, acc;
   float sz;
-
+  PImage kim;
+  float life, lifespan;
+  
 
   Particle () {
     loc=new PVector(width/2, height*.1);
     vel=new PVector(random(-3, 3), random(-4, -2));
     acc=new PVector(0, .1);
-    sz=10;
+    sz=35;
+    kim=loadImage("kim.jpg");
+    lifespan=random(1, 1000);
+    life=lifespan;
   }
 
   void display() {
-    PImage kim;
-    kim=loadImage("kim.jpg");
-    image(kim,loc.x,loc.y,kim.height*.2,kim.width*.2);
+//    tint(360,opacity);
+    image(kim, loc.x, loc.y, sz*1.56, sz);
   }
 
   void move() {
     vel.add(acc);
     loc.add(vel);
   }
-  
-  boolean isDead(){
-    if(loc.y - sz/2 >height){
+
+  boolean isDead() {
+    if (loc.y - sz/2 >height || sz<=0) {
       return true;
     } else {
       return false;
     }
+  }
+  void update() {
+    life-=1;
+    sz = map(life, 0, lifespan, 0, 35);
   }
 }
 
