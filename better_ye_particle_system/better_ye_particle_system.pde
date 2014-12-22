@@ -67,6 +67,7 @@ class Particle {
   float sz;
   PImage kim;
   float life, lifespan;
+//  float opacity;
   
 
   Particle () {
@@ -77,10 +78,11 @@ class Particle {
     kim=loadImage("kim.jpg");
     lifespan=random(1, 1000);
     life=lifespan;
+//    opacity=255;
   }
 
   void display() {
-//    tint(360,opacity);
+//  tint(360,opacity);
     image(kim, loc.x, loc.y, sz*1.56, sz);
   }
 
@@ -99,6 +101,7 @@ class Particle {
   void update() {
     life-=1;
     sz = map(life, 0, lifespan, 0, 35);
+ //   opacity= map(life,0,lifespan,0,opacity);
   }
 }
 
